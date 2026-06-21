@@ -35,11 +35,14 @@ export default function HomeScreen({ navigation }: Props) {
         >
           <Text style={styles.moduloTexto}>🔧 Manutenção</Text>
         </TouchableOpacity>
-      </View>
 
-      <Text style={styles.info}>
-        Escalas será adicionado na próxima etapa.
-      </Text>
+        <TouchableOpacity
+          style={styles.modulo}
+          onPress={() => navigation.navigate('Escalas')}
+        >
+          <Text style={styles.moduloTexto}>📅 Escalas</Text>
+        </TouchableOpacity>
+      </View>
 
       <TouchableOpacity style={styles.botaoSair} onPress={() => logout()}>
         <Text style={styles.botaoSairTexto}>Sair</Text>
