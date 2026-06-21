@@ -49,4 +49,4 @@ src/
 - [x] Módulo Frota
 - [x] Módulo Motoristas
 - [x] Módulo Manutenção
-- [ ] Módulo Escalas
+- [x] Módulo Escalas

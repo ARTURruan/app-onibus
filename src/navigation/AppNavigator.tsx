@@ -8,6 +8,7 @@ import HomeScreen from '../screens/HomeScreen';
 import FrotaNavigator from './FrotaNavigator';
 import MotoristasNavigator from './MotoristasNavigator';
 import ManutencaoNavigator from './ManutencaoNavigator';
+import EscalasNavigator from './EscalasNavigator';
 
 export type AppStackParamList = {
   Login: undefined;
@@ -15,6 +16,7 @@ export type AppStackParamList = {
   Frota: undefined;
   Motoristas: undefined;
   Manutencao: undefined;
+  Escalas: undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -53,6 +55,11 @@ export default function AppNavigator() {
             <Stack.Screen
               name="Manutencao"
               component={ManutencaoNavigator}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Escalas"
+              component={EscalasNavigator}
               options={{ headerShown: false }}
             />
           </>
