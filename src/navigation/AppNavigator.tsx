@@ -5,8 +5,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../context/AuthContext';
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
+import FrotaNavigator from './FrotaNavigator';
 
-const Stack = createNativeStackNavigator();
+export type AppStackParamList = {
+  Login: undefined;
+  Home: undefined;
+  Frota: undefined;
+};
+
+const Stack = createNativeStackNavigator<AppStackParamList>();
 
 export default function AppNavigator() {
   const { user, loading } = useAuth();
@@ -23,11 +30,18 @@ export default function AppNavigator() {
     <NavigationContainer>
       <Stack.Navigator>
         {user ? (
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ title: 'App Ônibus' }}
-          />
+          <>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ title: 'App Ônibus' }}
+            />
+            <Stack.Screen
+              name="Frota"
+              component={FrotaNavigator}
+              options={{ headerShown: false }}
+            />
+          </>
         ) : (
           <Stack.Screen
             name="Login"
