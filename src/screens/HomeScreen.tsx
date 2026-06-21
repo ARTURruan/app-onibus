@@ -21,10 +21,17 @@ export default function HomeScreen({ navigation }: Props) {
         >
           <Text style={styles.moduloTexto}>🚌 Frota</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.modulo}
+          onPress={() => navigation.navigate('Motoristas')}
+        >
+          <Text style={styles.moduloTexto}>👤 Motoristas</Text>
+        </TouchableOpacity>
       </View>
 
       <Text style={styles.info}>
-        Motoristas, Manutenção e Escalas serão adicionados nas próximas etapas.
+        Manutenção e Escalas serão adicionados nas próximas etapas.
       </Text>
 
       <TouchableOpacity style={styles.botaoSair} onPress={() => logout()}>

@@ -47,6 +47,6 @@ src/
 - [x] Setup do projeto e Firebase
 - [x] Autenticação (login do admin)
 - [x] Módulo Frota
-- [ ] Módulo Motoristas
+- [x] Módulo Motoristas
 - [ ] Módulo Manutenção
 - [ ] Módulo Escalas

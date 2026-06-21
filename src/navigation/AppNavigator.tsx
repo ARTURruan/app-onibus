@@ -6,11 +6,13 @@ import { useAuth } from '../context/AuthContext';
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import FrotaNavigator from './FrotaNavigator';
+import MotoristasNavigator from './MotoristasNavigator';
 
 export type AppStackParamList = {
   Login: undefined;
   Home: undefined;
   Frota: undefined;
+  Motoristas: undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -39,6 +41,11 @@ export default function AppNavigator() {
             <Stack.Screen
               name="Frota"
               component={FrotaNavigator}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Motoristas"
+              component={MotoristasNavigator}
               options={{ headerShown: false }}
             />
           </>
