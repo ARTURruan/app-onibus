@@ -48,5 +48,5 @@ src/
 - [x] Autenticação (login do admin)
 - [x] Módulo Frota
 - [x] Módulo Motoristas
-- [ ] Módulo Manutenção
+- [x] Módulo Manutenção
 - [ ] Módulo Escalas
