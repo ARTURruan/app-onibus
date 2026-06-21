@@ -45,7 +45,7 @@ src/
 ## Roadmap
 
 - [x] Setup do projeto e Firebase
-- [ ] Autenticação (login do admin)
+- [x] Autenticação (login do admin)
 - [ ] Módulo Frota
 - [ ] Módulo Motoristas
 - [ ] Módulo Manutenção
