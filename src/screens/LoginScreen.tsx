@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import { useAuth } from '../context/AuthContext';
+import { colors, radius, shadow, spacing } from '../theme';
 
 export default function LoginScreen() {
   const { login } = useAuth();
@@ -17,6 +18,7 @@ export default function LoginScreen() {
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
+  const [focado, setFocado] = useState<'email' | 'senha' | null>(null);
 
   async function handleLogin() {
     setErro(null);
@@ -39,40 +41,61 @@ export default function LoginScreen() {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <View style={styles.card}>
-        <Text style={styles.titulo}>App Ônibus</Text>
-        <Text style={styles.subtitulo}>Acesso administrativo</Text>
+      <View style={styles.brand}>
+        <View style={styles.logo}>
+          <Text style={styles.logoEmoji}>🚌</Text>
+        </View>
+        <Text style={styles.brandNome}>App Ônibus</Text>
+        <Text style={styles.brandSub}>Painel administrativo</Text>
+      </View>
 
+      <View style={styles.card}>
+        <Text style={styles.label}>E-mail</Text>
         <TextInput
-          style={styles.input}
-          placeholder="E-mail"
+          style={[styles.input, focado === 'email' && styles.inputFocado]}
+          placeholder="voce@empresa.com"
+          placeholderTextColor={colors.inactive}
           autoCapitalize="none"
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
+          onFocus={() => setFocado('email')}
+          onBlur={() => setFocado(null)}
         />
+
+        <Text style={styles.label}>Senha</Text>
         <TextInput
-          style={styles.input}
-          placeholder="Senha"
+          style={[styles.input, focado === 'senha' && styles.inputFocado]}
+          placeholder="••••••••"
+          placeholderTextColor={colors.inactive}
           secureTextEntry
           value={senha}
           onChangeText={setSenha}
+          onFocus={() => setFocado('senha')}
+          onBlur={() => setFocado(null)}
         />
 
-        {erro && <Text style={styles.erro}>{erro}</Text>}
+        {erro && (
+          <View style={styles.erroBox}>
+            <Text style={styles.erroTexto}>{erro}</Text>
+          </View>
+        )}
 
         <TouchableOpacity
           style={[styles.botao, enviando && styles.botaoDesabilitado]}
           onPress={handleLogin}
           disabled={enviando}
+          activeOpacity={0.85}
         >
           {enviando ? (
-            <ActivityIndicator color="#fff" />
+            <ActivityIndicator color={colors.textOnPrimary} />
           ) : (
             <Text style={styles.botaoTexto}>Entrar</Text>
           )}
         </TouchableOpacity>
       </View>
+
+      <Text style={styles.rodape}>Acesso restrito à equipe administrativa</Text>
     </KeyboardAvoidingView>
   );
 }
@@ -80,53 +103,97 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    backgroundColor: colors.navy,
     justifyContent: 'center',
-    padding: 24,
+    padding: spacing.lg,
+  },
+  brand: {
+    alignItems: 'center',
+    marginBottom: spacing.xl,
+  },
+  logo: {
+    width: 72,
+    height: 72,
+    borderRadius: radius.lg,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: spacing.md,
+    ...shadow,
+  },
+  logoEmoji: {
+    fontSize: 38,
+  },
+  brandNome: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: colors.textOnPrimary,
+    letterSpacing: 0.5,
+  },
+  brandSub: {
+    fontSize: 14,
+    color: '#94a3b8',
+    marginTop: spacing.xs,
   },
   card: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 24,
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    padding: spacing.lg,
+    ...shadow,
   },
-  titulo: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#0f172a',
-    textAlign: 'center',
-  },
-  subtitulo: {
-    fontSize: 14,
-    color: '#64748b',
-    textAlign: 'center',
-    marginBottom: 24,
+  label: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: colors.textMuted,
+    marginBottom: spacing.xs,
   },
   input: {
-    borderWidth: 1,
-    borderColor: '#cbd5e1',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
+    borderWidth: 1.5,
+    borderColor: colors.border,
+    borderRadius: radius.sm,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.md,
     fontSize: 16,
-    marginBottom: 12,
+    color: colors.text,
+    backgroundColor: colors.surfaceMuted,
+    marginBottom: spacing.md,
   },
-  erro: {
-    color: '#dc2626',
-    marginBottom: 12,
+  inputFocado: {
+    borderColor: colors.primary,
+    backgroundColor: colors.surface,
+  },
+  erroBox: {
+    backgroundColor: '#fef2f2',
+    borderRadius: radius.sm,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    marginBottom: spacing.md,
+  },
+  erroTexto: {
+    color: colors.danger,
+    fontSize: 13,
+    fontWeight: '500',
   },
   botao: {
-    backgroundColor: '#2563eb',
-    borderRadius: 8,
-    paddingVertical: 14,
+    backgroundColor: colors.primary,
+    borderRadius: radius.sm,
+    paddingVertical: spacing.md,
     alignItems: 'center',
-    marginTop: 4,
+    marginTop: spacing.xs,
+    ...shadow,
   },
   botaoDesabilitado: {
     opacity: 0.7,
   },
   botaoTexto: {
-    color: '#fff',
+    color: colors.textOnPrimary,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
+  },
+  rodape: {
+    textAlign: 'center',
+    color: '#475569',
+    fontSize: 12,
+    marginTop: spacing.lg,
   },
 });
